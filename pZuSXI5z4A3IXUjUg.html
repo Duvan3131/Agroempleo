@@ -1,0 +1,472 @@
+<html><head><base href="https://agro-empleo.com/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroEmpleo - Panel de Administración</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ea;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1, h2, h3 {
+        color: #2c5e1a;
+    }
+    nav {
+        background-color: #4CAF50;
+        padding: 10px 0;
+    }
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    nav ul li {
+        margin: 0 15px;
+    }
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .dashboard-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 20px;
+        text-align: center;
+    }
+    .dashboard-card h3 {
+        margin-top: 0;
+    }
+    .dashboard-card p {
+        font-size: 2em;
+        font-weight: bold;
+        color: #4CAF50;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: white;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .action-btn {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-right: 5px;
+    }
+    .edit-btn {
+        background-color: #FFA500;
+        color: white;
+    }
+    .delete-btn {
+        background-color: #FF0000;
+        color: white;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 8px;
+    }
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    form label {
+        margin-top: 10px;
+    }
+    form input, form select, form textarea {
+        margin-bottom: 10px;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    form button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    form button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#users">Usuarios</a></li>
+            <li><a href="#jobs">Empleos</a></li>
+            <li><a href="#employers">Empleadores</a></li>
+            <li><a href="#reports">Reportes</a></li>
+            <li><a href="#settings">Configuración</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Panel de Administración AgroEmpleo</h1>
+        
+        <section id="dashboard" class="dashboard">
+            <div class="dashboard-card">
+                <h3>Usuarios Totales</h3>
+                <p>1,245</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Empleos Activos</h3>
+                <p>387</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Empleadores Registrados</h3>
+                <p>156</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Aplicaciones este mes</h3>
+                <p>2,890</p>
+            </div>
+        </section>
+
+        <section id="users">
+            <h2>Gestión de Usuarios</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Tipo</th>
+                        <th>Fecha de Registro</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table-body">
+                    <!-- Los datos de usuarios se cargarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="jobs">
+            <h2>Gestión de Empleos</h2>
+            <button onclick="openJobModal()" class="action-btn edit-btn">Agregar Empleo</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Empresa</th>
+                        <th>Ubicación</th>
+                        <th>Salario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="jobs-table-body">
+                    <!-- Los datos de empleos se cargarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="employers">
+            <h2>Gestión de Empleadores</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre de la Empresa</th>
+                        <th>Contacto</th>
+                        <th>Email</th>
+                        <th>Empleos Publicados</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="employers-table-body">
+                    <!-- Los datos de empleadores se cargarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="reports">
+            <h2>Reportes</h2>
+            <p>Aquí se mostrarían gráficos y estadísticas detalladas sobre el uso de la plataforma.</p>
+        </section>
+
+        <section id="settings">
+            <h2>Configuración del Sistema</h2>
+            <form id="settings-form">
+                <label for="site-name">Nombre del Sitio:</label>
+                <input type="text" id="site-name" name="site-name" value="AgroEmpleo">
+                
+                <label for="contact-email">Email de Contacto:</label>
+                <input type="email" id="contact-email" name="contact-email" value="contacto@agroempleo.com">
+                
+                <label for="jobs-per-page">Empleos por Página:</label>
+                <input type="number" id="jobs-per-page" name="jobs-per-page" value="20">
+                
+                <label for="allow-registration">Permitir Registro de Usuarios:</label>
+                <select id="allow-registration" name="allow-registration">
+                    <option value="true" selected>Sí</option>
+                    <option value="false">No</option>
+                </select>
+                
+                <button type="submit">Guardar Configuración</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Modal para agregar/editar empleo -->
+    <div id="jobModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="jobModalTitle">Agregar Nuevo Empleo</h2>
+            <form id="jobForm">
+                <input type="hidden" id="jobId" name="jobId">
+                <label for="jobTitle">Título del Empleo:</label>
+                <input type="text" id="jobTitle" name="jobTitle" required>
+                <label for="jobCompany">Empresa:</label>
+                <input type="text" id="jobCompany" name="jobCompany" required>
+                <label for="jobLocation">Ubicación:</label>
+                <input type="text" id="jobLocation" name="jobLocation" required>
+                <label for="jobSalary">Salario:</label>
+                <input type="text" id="jobSalary" name="jobSalary" required>
+                <label for="jobType">Tipo de Empleo:</label>
+                <select id="jobType" name="jobType" required>
+                    <option value="Tiempo Completo">Tiempo Completo</option>
+                    <option value="Medio Tiempo">Medio Tiempo</option>
+                    <option value="Temporal">Temporal</option>
+                    <option value="Por Contrato">Por Contrato</option>
+                </select>
+                <label for="jobDescription">Descripción:</label>
+                <textarea id="jobDescription" name="jobDescription" rows="4" required></textarea>
+                <button type="submit">Guardar Empleo</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo
+        const users = [
+            { id: 1, name: "Juan Pérez", email: "juan@example.com", type: "Empleado", registrationDate: "2023-01-15" },
+            { id: 2, name: "María González", email: "maria@example.com", type: "Empleador", registrationDate: "2023-02-20" },
+            { id: 3, name: "Carlos Rodríguez", email: "carlos@example.com", type: "Empleado", registrationDate: "2023-03-10" }
+        ];
+
+        const jobs = [
+            { id: 1, title: "Agricultor Especializado en Café", company: "Finca Cafetera El Amanecer", location: "Quindío, Colombia", salary: "1.800.000 COP - 2.200.000 COP mensuales" },
+            { id: 2, title: "Técnico en Sistemas de Riego", company: "AgroTech Solutions", location: "Valle del Cauca, Colombia", salary: "2.500.000 COP - 3.000.000 COP mensuales" },
+            { id: 3, title: "Asistente de Granja Avícola", company: "Avícola El Corral", location: "Santander, Colombia", salary: "1.200.000 COP - 1.500.000 COP mensuales" }
+        ];
+
+        const employers = [
+            { id: 1, companyName: "Finca Cafetera El Amanecer", contact: "Pedro Gómez", email: "pedro@elamanecer.com", jobsPosted: 3 },
+            { id: 2, companyName: "AgroTech Solutions", contact: "Ana Martínez", email: "ana@agrotech.com", jobsPosted: 2 },
+            { id: 3, companyName: "Avícola El Corral", contact: "Luis Ramírez", email: "luis@elcorral.com", jobsPosted: 1 }
+        ];
+
+        // Funciones para cargar datos en las tablas
+        function loadUsersTable() {
+            const tableBody = document.getElementById('users-table-body');
+            tableBody.innerHTML = '';
+            users.forEach(user => {
+                const row = `<tr>
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.type}</td>
+                    <td>${user.registrationDate}</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editUser(${user.id})">Editar</button>
+                        <button class="action-btn delete-btn" onclick="deleteUser(${user.id})">Eliminar</button>
+                    </td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function loadJobsTable() {
+            const tableBody = document.getElementById('jobs-table-body');
+            tableBody.innerHTML = '';
+            jobs.forEach(job => {
+                const row = `<tr>
+                    <td>${job.id}</td>
+                    <td>${job.title}</td>
+                    <td>${job.company}</td>
+                    <td>${job.location}</td>
+                    <td>${job.salary}</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editJob(${job.id})">Editar</button>
+                        <button class="action-btn delete-btn" onclick="deleteJob(${job.id})">Eliminar</button>
+                    </td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function loadEmployersTable() {
+            const tableBody = document.getElementById('employers-table-body');
+            tableBody.innerHTML = '';
+            employers.forEach(employer => {
+                const row = `<tr>
+                    <td>${employer.id}</td>
+                    <td>${employer.companyName}</td>
+                    <td>${employer.contact}</td>
+                    <td>${employer.email}</td>
+                    <td>${employer.jobsPosted}</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editEmployer(${employer.id})">Editar</button>
+                        <button class="action-btn delete-btn" onclick="deleteEmployer(${employer.id})">Eliminar</button>
+                    </td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Funciones para manejar acciones de CRUD
+        function editUser(userId) {
+            console.log(`Editando usuario con ID: ${userId}`);
+            // Aquí iría la lógica para abrir un modal de edición de usuario
+        }
+
+        function deleteUser(userId) {
+            if (confirm(`¿Estás seguro de que quieres eliminar al usuario con ID: ${userId}?`)) {
+                console.log(`Usuario con ID: ${userId} eliminado`);
+                // Aquí iría la lógica para eliminar el usuario y actualizar la tabla
+            }
+        }
+
+        function editJob(jobId) {
+            console.log(`Editando empleo con ID: ${jobId}`);
+            // Aquí iría la lógica para abrir el modal de edición de empleo
+            openJobModal(jobId);
+        }
+
+        function deleteJob(jobId) {
+            if (confirm(`¿Estás seguro de que quieres eliminar el empleo con ID: ${jobId}?`)) {
+                console.log(`Empleo con ID: ${jobId} eliminado`);
+                // Aquí iría la lógica para eliminar el empleo y actualizar la tabla
+            }
+        }
+
+        function editEmployer(employerId) {
+            console.log(`Editando empleador con ID: ${employerId}`);
+            // Aquí iría la lógica para abrir un modal de edición de empleador
+        }
+
+        function deleteEmployer(employerId) {
+            if (confirm(`¿Estás seguro de que quieres eliminar al empleador con ID: ${employerId}?`)) {
+                console.log(`Empleador con ID: ${employerId} eliminado`);
+                // Aquí iría la lógica para eliminar el empleador y actualizar la tabla
+            }
+        }
+
+        // Manejo del modal de empleos
+        const jobModal = document.getElementById('jobModal');
+        const closeBtn = jobModal.querySelector('.close');
+        const jobForm = document.getElementById('jobForm');
+
+        function openJobModal(jobId = null) {
+            const modalTitle = document.getElementById('jobModalTitle');
+            if (jobId) {
+                modalTitle.textContent = 'Editar Empleo';
+                // Aquí cargarías los datos del empleo en el formulario
+            } else {
+                modalTitle.textContent = 'Agregar Nuevo Empleo';
+                jobForm.reset();
+            }
+            jobModal.style.display = 'block';
+        }
+
+        closeBtn.onclick = function() {
+            jobModal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == jobModal) {
+                jobModal.style.display = 'none';
+            }
+        }
+
+        jobForm.onsubmit = function(e) {
+            e.preventDefault();
+            const formData = new FormData(jobForm);
+            const jobData = Object.fromEntries(formData.entries());
+            console.log('Datos del empleo:', jobData);
+            // Aquí iría la lógica para guardar o actualizar el empleo
+            jobModal.style.display = 'none';
+            loadJobsTable(); // Recargar la tabla de empleos
+        }
+
+        // Cargar datos iniciales
+        loadUsersTable();
+        loadJobsTable();
+        loadEmployersTable();
+
+        // Manejar el formulario de configuración
+        document.getElementById('settings-form').onsubmit = function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const settings = Object.fromEntries(formData.entries());
+            console.log('Configuración guardada:', settings);
+            // Aquí iría la lógica para guardar la configuración en el backend
+            alert('Configuración guardada exitosamente');
+        }
+    </script>
+</body>
+</html>

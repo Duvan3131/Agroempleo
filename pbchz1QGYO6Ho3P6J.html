@@ -1,0 +1,269 @@
+<html><head><base href="https://agro-empleo.com/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroEmpleo - Anuncios de Empleo</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ea;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1, h2, h3 {
+        color: #2c5e1a;
+    }
+    nav {
+        margin-bottom: 20px;
+    }
+    nav a {
+        color: #4CAF50;
+        text-decoration: none;
+        margin-right: 15px;
+    }
+    .filters {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+    .filters h2 {
+        margin-top: 0;
+    }
+    .filter-group {
+        margin-bottom: 15px;
+    }
+    .filter-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .filter-group select, .filter-group input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .filter-group input[type="checkbox"] {
+        margin-right: 5px;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    .job-listings {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .job-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 20px;
+        transition: transform 0.3s ease;
+    }
+    .job-card:hover {
+        transform: translateY(-5px);
+    }
+    .job-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .job-company {
+        color: #4CAF50;
+        font-weight: bold;
+    }
+    .job-location, .job-salary, .job-type {
+        margin: 5px 0;
+        color: #666;
+    }
+    .apply-btn {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+    .apply-btn:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>AgroEmpleo - Anuncios de Empleo</h1>
+        <nav>
+            <a href="index.html">Página Principal</a>
+            <a href="perfiles.html">Perfiles</a>
+            <a href="anuncios.html">Anuncios de Empleo</a>
+        </nav>
+        
+        <div class="filters">
+            <h2>Filtrar Anuncios</h2>
+            <form id="filter-form">
+                <div class="filter-group">
+                    <label for="job-type">Tipo de Empleo:</label>
+                    <select id="job-type" name="job-type">
+                        <option value="">Todos</option>
+                        <option value="tiempo-completo">Tiempo Completo</option>
+                        <option value="medio-tiempo">Medio Tiempo</option>
+                        <option value="temporal">Temporal</option>
+                        <option value="por-contrato">Por Contrato</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="location">Ubicación:</label>
+                    <input type="text" id="location" name="location" placeholder="Ciudad o Departamento">
+                </div>
+                <div class="filter-group">
+                    <label for="salary">Salario Mínimo:</label>
+                    <input type="number" id="salary" name="salary" placeholder="Ingrese salario mínimo">
+                </div>
+                <div class="filter-group">
+                    <label>Experiencia Requerida:</label>
+                    <input type="checkbox" id="exp-entry" name="experience" value="entry">
+                    <label for="exp-entry">Nivel de Entrada</label><br>
+                    <input type="checkbox" id="exp-mid" name="experience" value="mid">
+                    <label for="exp-mid">Nivel Medio</label><br>
+                    <input type="checkbox" id="exp-senior" name="experience" value="senior">
+                    <label for="exp-senior">Nivel Senior</label>
+                </div>
+                <div class="filter-group">
+                    <label for="skills">Habilidades:</label>
+                    <input type="text" id="skills" name="skills" placeholder="Ej: agricultura, ganadería, riego">
+                </div>
+                <button type="submit">Aplicar Filtros</button>
+            </form>
+        </div>
+
+        <div class="job-listings" id="job-listings">
+            <!-- Los anuncios de trabajo se cargarán aquí dinámicamente -->
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo para los anuncios de trabajo
+        const jobListings = [
+            {
+                title: "Agricultor Especializado en Café",
+                company: "Finca Cafetera El Amanecer",
+                location: "Quindío, Colombia",
+                salary: "1.800.000 COP - 2.200.000 COP mensuales",
+                type: "Tiempo Completo",
+                experience: "mid",
+                skills: ["cultivo de café", "control de plagas", "cosecha"]
+            },
+            {
+                title: "Técnico en Sistemas de Riego",
+                company: "AgroTech Solutions",
+                location: "Valle del Cauca, Colombia",
+                salary: "2.500.000 COP - 3.000.000 COP mensuales",
+                type: "Por Contrato",
+                experience: "senior",
+                skills: ["sistemas de riego", "mantenimiento de equipos", "optimización de recursos hídricos"]
+            },
+            {
+                title: "Asistente de Granja Avícola",
+                company: "Avícola El Corral",
+                location: "Santander, Colombia",
+                salary: "1.200.000 COP - 1.500.000 COP mensuales",
+                type: "Tiempo Completo",
+                experience: "entry",
+                skills: ["cuidado de aves", "bioseguridad", "manejo de alimentos"]
+            },
+            {
+                title: "Ingeniero Agrónomo",
+                company: "Cultivos Orgánicos S.A.",
+                location: "Antioquia, Colombia",
+                salary: "3.500.000 COP - 4.500.000 COP mensuales",
+                type: "Tiempo Completo",
+                experience: "senior",
+                skills: ["agricultura orgánica", "desarrollo de cultivos", "gestión de proyectos agrícolas"]
+            },
+            {
+                title: "Operador de Maquinaria Agrícola",
+                company: "Hacienda Los Llanos",
+                location: "Meta, Colombia",
+                salary: "2.000.000 COP - 2.500.000 COP mensuales",
+                type: "Temporal",
+                experience: "mid",
+                skills: ["operación de tractores", "mantenimiento de maquinaria", "siembra mecanizada"]
+            },
+            {
+                title: "Veterinario de Ganado",
+                company: "Rancho Ganadero El Toro",
+                location: "Córdoba, Colombia",
+                salary: "3.000.000 COP - 3.800.000 COP mensuales",
+                type: "Tiempo Completo",
+                experience: "senior",
+                skills: ["salud animal", "reproducción bovina", "nutrición animal"]
+            }
+        ];
+
+        function displayJobs(jobs) {
+            const jobListingsContainer = document.getElementById('job-listings');
+            jobListingsContainer.innerHTML = '';
+
+            jobs.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'job-card';
+                jobCard.innerHTML = `
+                    <div class="job-title">${job.title}</div>
+                    <div class="job-company">${job.company}</div>
+                    <div class="job-location">${job.location}</div>
+                    <div class="job-salary">${job.salary}</div>
+                    <div class="job-type">${job.type}</div>
+                    <a href="#" class="apply-btn">Aplicar Ahora</a>
+                `;
+                jobListingsContainer.appendChild(jobCard);
+            });
+        }
+
+        function filterJobs(filters) {
+            return jobListings.filter(job => {
+                if (filters.jobType && job.type !== filters.jobType) return false;
+                if (filters.location && !job.location.toLowerCase().includes(filters.location.toLowerCase())) return false;
+                if (filters.salary && parseInt(job.salary) < parseInt(filters.salary)) return false;
+                if (filters.experience.length > 0 && !filters.experience.includes(job.experience)) return false;
+                if (filters.skills && !job.skills.some(skill => filters.skills.toLowerCase().split(',').map(s => s.trim()).includes(skill.toLowerCase()))) return false;
+                return true;
+            });
+        }
+
+        document.getElementById('filter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const filters = {
+                jobType: document.getElementById('job-type').value,
+                location: document.getElementById('location').value,
+                salary: document.getElementById('salary').value,
+                experience: Array.from(document.querySelectorAll('input[name="experience"]:checked')).map(el => el.value),
+                skills: document.getElementById('skills').value
+            };
+            const filteredJobs = filterJobs(filters);
+            displayJobs(filteredJobs);
+        });
+
+        // Mostrar todos los trabajos al cargar la página
+        displayJobs(jobListings);
+    </script>
+</body>
+</html>

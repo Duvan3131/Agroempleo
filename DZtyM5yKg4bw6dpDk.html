@@ -1,0 +1,257 @@
+<html><head><base href="https://agro-empleo.com/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroEmpleo - Perfiles Detallados</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ea;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1, h2, h3 {
+        color: #2c5e1a;
+    }
+    .profile-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .rating {
+        color: #ffd700;
+        font-size: 24px;
+    }
+    .comment {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4CAF50;
+        padding: 10px;
+        margin: 10px 0;
+    }
+    .job-history, .resume {
+        margin-top: 20px;
+    }
+    .job-item, .resume-item {
+        background-color: #f0f8ea;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+    }
+    .tab-container {
+        display: flex;
+        margin-bottom: 20px;
+    }
+    .tab {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .tab:hover {
+        background-color: #45a049;
+    }
+    .tab.active {
+        background-color: #367c39;
+    }
+    .tab-content {
+        display: none;
+    }
+    .tab-content.active {
+        display: block;
+    }
+    .rating-form {
+        margin-top: 20px;
+    }
+    .rating-form select, .rating-form textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .rating-form button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .rating-form button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>AgroEmpleo - Perfiles Detallados</h1>
+        <nav>
+            <a href="index.html">Volver a la página principal</a>
+        </nav>
+        
+        <div class="tab-container">
+            <button class="tab active" onclick="openTab(event, 'empleado')">Perfil de Empleado</button>
+            <button class="tab" onclick="openTab(event, 'empleador')">Perfil de Empleador</button>
+        </div>
+
+        <div id="empleado" class="tab-content active">
+            <div class="profile-card">
+                <h2>Perfil de Empleado</h2>
+                <p><strong>Nombre:</strong> Juan Pérez</p>
+                <p><strong>Ciudad:</strong> Medellín</p>
+                <p><strong>Departamento:</strong> Antioquia</p>
+                <p><strong>Teléfono:</strong> +57 300 123 4567</p>
+                <p><strong>Correo:</strong> juan.perez@email.com</p>
+                <p><strong>Calificación promedio:</strong> <span class="rating">★★★★☆</span> (4.2/5)</p>
+
+                <h3>Hoja de Vida</h3>
+                <div class="resume">
+                    <div class="resume-item">
+                        <h4>Educación</h4>
+                        <p>Técnico en Agricultura, SENA, 2018-2020</p>
+                    </div>
+                    <div class="resume-item">
+                        <h4>Habilidades</h4>
+                        <p>Manejo de cultivos, riego eficiente, control de plagas</p>
+                    </div>
+                </div>
+
+                <h3>Historial de Empleos</h3>
+                <div class="job-history">
+                    <div class="job-item">
+                        <h4>Agricultor - Finca El Paraíso</h4>
+                        <p>Enero 2021 - Presente</p>
+                        <p>Responsable del manejo de cultivos de café y plátano.</p>
+                    </div>
+                    <div class="job-item">
+                        <h4>Asistente de Campo - Hacienda Verde</h4>
+                        <p>Junio 2020 - Diciembre 2020</p>
+                        <p>Apoyo en labores de siembra y cosecha de hortalizas.</p>
+                    </div>
+                </div>
+
+                <h3>Comentarios y Calificaciones</h3>
+                <div class="comments">
+                    <div class="comment">
+                        <p><strong>María González (Empleador)</strong> - <span class="rating">★★★★★</span></p>
+                        <p>Juan es un excelente trabajador, muy responsable y con amplios conocimientos en agricultura.</p>
+                    </div>
+                    <div class="comment">
+                        <p><strong>Carlos Rodríguez (Empleador)</strong> - <span class="rating">★★★★☆</span></p>
+                        <p>Buen desempeño en el manejo de cultivos. Recomendado para trabajos en el campo.</p>
+                    </div>
+                </div>
+
+                <div class="rating-form">
+                    <h4>Calificar a Juan Pérez</h4>
+                    <form id="ratingFormEmpleado">
+                        <select name="rating" required>
+                            <option value="">Seleccione una calificación</option>
+                            <option value="5">★★★★★ (5 estrellas)</option>
+                            <option value="4">★★★★☆ (4 estrellas)</option>
+                            <option value="3">★★★☆☆ (3 estrellas)</option>
+                            <option value="2">★★☆☆☆ (2 estrellas)</option>
+                            <option value="1">★☆☆☆☆ (1 estrella)</option>
+                        </select>
+                        <textarea name="comment" placeholder="Deje un comentario..." required></textarea>
+                        <button type="submit">Enviar Calificación</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="empleador" class="tab-content">
+            <div class="profile-card">
+                <h2>Perfil de Empleador</h2>
+                <p><strong>Nombre de la Empresa:</strong> Agrícola del Valle</p>
+                <p><strong>Ciudad:</strong> Cali</p>
+                <p><strong>Departamento:</strong> Valle del Cauca</p>
+                <p><strong>Teléfono:</strong> +57 2 555 6789</p>
+                <p><strong>Correo:</strong> info@agricoladelvalle.com</p>
+                <p><strong>Calificación promedio:</strong> <span class="rating">★★★★☆</span> (4.5/5)</p>
+
+                <h3>Descripción de la Empresa</h3>
+                <p>Agrícola del Valle es una empresa líder en la producción y distribución de frutas tropicales, con más de 20 años de experiencia en el sector agrícola colombiano.</p>
+
+                <h3>Empleos Actuales</h3>
+                <div class="job-history">
+                    <div class="job-item">
+                        <h4>Supervisor de Campo</h4>
+                        <p>Responsable de supervisar las operaciones diarias en los cultivos de mango y papaya.</p>
+                    </div>
+                    <div class="job-item">
+                        <h4>Técnico en Riego</h4>
+                        <p>Encargado de implementar y mantener sistemas de riego eficientes en nuestras plantaciones.</p>
+                    </div>
+                </div>
+
+                <h3>Comentarios y Calificaciones</h3>
+                <div class="comments">
+                    <div class="comment">
+                        <p><strong>Pedro Gómez (Empleado)</strong> - <span class="rating">★★★★★</span></p>
+                        <p>Excelente ambiente laboral y oportunidades de crecimiento. Muy recomendado.</p>
+                    </div>
+                    <div class="comment">
+                        <p><strong>Ana Martínez (Empleado)</strong> - <span class="rating">★★★★☆</span></p>
+                        <p>Buena empresa para trabajar, con beneficios competitivos y proyectos interesantes.</p>
+                    </div>
+                </div>
+
+                <div class="rating-form">
+                    <h4>Calificar a Agrícola del Valle</h4>
+                    <form id="ratingFormEmpleador">
+                        <select name="rating" required>
+                            <option value="">Seleccione una calificación</option>
+                            <option value="5">★★★★★ (5 estrellas)</option>
+                            <option value="4">★★★★☆ (4 estrellas)</option>
+                            <option value="3">★★★☆☆ (3 estrellas)</option>
+                            <option value="2">★★☆☆☆ (2 estrellas)</option>
+                            <option value="1">★☆☆☆☆ (1 estrella)</option>
+                        </select>
+                        <textarea name="comment" placeholder="Deje un comentario..." required></textarea>
+                        <button type="submit">Enviar Calificación</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.getElementById("ratingFormEmpleado").addEventListener("submit", function(e) {
+            e.preventDefault();
+            alert("¡Gracias por calificar a Juan Pérez!");
+            this.reset();
+        });
+
+        document.getElementById("ratingFormEmpleador").addEventListener("submit", function(e) {
+            e.preventDefault();
+            alert("¡Gracias por calificar a Agrícola del Valle!");
+            this.reset();
+        });
+    </script>
+</body>
+</html>

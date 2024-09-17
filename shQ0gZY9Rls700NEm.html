@@ -1,0 +1,178 @@
+<html><head><base href="https://agro-empleo.com/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroEmpleo - Inicio</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ea;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    header {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        padding: 1em;
+    }
+    nav {
+        background-color: #45a049;
+        padding: 10px;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        margin: 0 5px;
+    }
+    nav a:hover {
+        background-color: #367c39;
+    }
+    h1, h2 {
+        color: #2c5e1a;
+    }
+    .form-container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        padding: 20px;
+        margin-top: 20px;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        margin-top: 10px;
+    }
+    input, select, textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    .profile-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .profile-link a {
+        color: #4CAF50;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .profile-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <h1>AgroEmpleo</h1>
+    </header>
+    <nav>
+        <a href="#empleador">Empleador</a>
+        <a href="#empleado">Empleado</a>
+        <a href="perfiles.html">Ver Perfiles</a>
+    </nav>
+    <div class="container">
+        <section id="empleador" class="form-container">
+            <h2>Formulario para Empleadores</h2>
+            <form id="empleadorForm">
+                <label for="nombreEmpresa">Nombre de la Empresa:</label>
+                <input type="text" id="nombreEmpresa" name="nombreEmpresa" required>
+                
+                <label for="ciudadEmpresa">Ciudad:</label>
+                <input type="text" id="ciudadEmpresa" name="ciudadEmpresa" required>
+                
+                <label for="departamentoEmpresa">Departamento:</label>
+                <input type="text" id="departamentoEmpresa" name="departamentoEmpresa" required>
+                
+                <label for="telefonoEmpresa">Teléfono:</label>
+                <input type="tel" id="telefonoEmpresa" name="telefonoEmpresa" required>
+                
+                <label for="correoEmpresa">Correo Electrónico:</label>
+                <input type="email" id="correoEmpresa" name="correoEmpresa" required>
+                
+                <label for="descripcionEmpresa">Descripción de la Empresa:</label>
+                <textarea id="descripcionEmpresa" name="descripcionEmpresa" rows="4" required></textarea>
+                
+                <button type="submit">Registrar Empleador</button>
+            </form>
+            <div class="profile-link">
+                <a href="perfiles.html#empleador">Ver perfil de empleador</a>
+            </div>
+        </section>
+        
+        <section id="empleado" class="form-container">
+            <h2>Formulario para Empleados</h2>
+            <form id="empleadoForm">
+                <label for="nombreEmpleado">Nombre Completo:</label>
+                <input type="text" id="nombreEmpleado" name="nombreEmpleado" required>
+                
+                <label for="ciudadEmpleado">Ciudad:</label>
+                <input type="text" id="ciudadEmpleado" name="ciudadEmpleado" required>
+                
+                <label for="departamentoEmpleado">Departamento:</label>
+                <input type="text" id="departamentoEmpleado" name="departamentoEmpleado" required>
+                
+                <label for="telefonoEmpleado">Teléfono:</label>
+                <input type="tel" id="telefonoEmpleado" name="telefonoEmpleado" required>
+                
+                <label for="correoEmpleado">Correo Electrónico:</label>
+                <input type="email" id="correoEmpleado" name="correoEmpleado" required>
+                
+                <label for="experienciaEmpleado">Experiencia Laboral:</label>
+                <textarea id="experienciaEmpleado" name="experienciaEmpleado" rows="4" required></textarea>
+                
+                <label for="habilidadesEmpleado">Habilidades:</label>
+                <input type="text" id="habilidadesEmpleado" name="habilidadesEmpleado" required>
+                
+                <button type="submit">Registrar Empleado</button>
+            </form>
+            <div class="profile-link">
+                <a href="perfiles.html#empleado">Ver perfil de empleado</a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.getElementById('empleadorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const empleadorData = Object.fromEntries(formData);
+            localStorage.setItem('empleadorData', JSON.stringify(empleadorData));
+            alert('Registro de empleador exitoso. Redirigiendo al perfil...');
+            window.location.href = 'perfiles.html#empleador';
+        });
+
+        document.getElementById('empleadoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const empleadoData = Object.fromEntries(formData);
+            localStorage.setItem('empleadoData', JSON.stringify(empleadoData));
+            alert('Registro de empleado exitoso. Redirigiendo al perfil...');
+            window.location.href = 'perfiles.html#empleado';
+        });
+    </script>
+</body>
+</html>
